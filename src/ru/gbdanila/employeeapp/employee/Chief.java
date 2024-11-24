@@ -10,8 +10,8 @@ public class Chief extends Employee{
                 .forEach(employee -> employee.setSalary(employee.getSalary() + amount));
     }
 
-    public Chief(String firstName, String secondName, String lastName, String phone, int salary, int birthYear) {
-        super(firstName, secondName, lastName, Position.CHIEF, phone, salary, birthYear);
+    public Chief(String firstName, String secondName, String lastName, Gender gender, String phone, int salary, int birthYear) {
+        super(firstName, secondName, lastName, gender, Position.CHIEF, phone, salary, birthYear);
     }
 
 

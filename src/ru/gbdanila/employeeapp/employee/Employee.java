@@ -1,8 +1,9 @@
 package ru.gbdanila.employeeapp.employee;
 
 import java.time.LocalDate;
-import java.util.Arrays;
+
 import java.util.Comparator;
+import java.util.List;
 
 public class Employee {
     public static void printAverageAgeAndSalary(Employee[] employees){
@@ -30,19 +31,54 @@ public class Employee {
     private String firstName;
     private String lastName;
     private String secondName;
+    private Gender gender;
     private Position position;
     private String phone;
     private int salary;
     private int birthYear;
 
-    public Employee(String firstName, String secondName, String lastName, Position position, String phone, int salary, int birthYear) {
+    public Employee(String firstName, String secondName, String lastName, Gender gender, Position position, String phone, int salary, int birthYear) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.lastName = lastName;
+        this.gender = gender;
         this.position = position;
         this.phone = phone;
         this.salary = salary;
         this.birthYear = birthYear;
+    }
+
+    public void congratulate(Employee[] employees){
+        LocalDate nowDate = LocalDate.now();
+        List<Holiday> holidays = Holiday.getHolidays();
+
+        for(Employee employee: employees){
+            if(!employee.equals(this)){
+                for(Holiday holiday: holidays){
+                    if(nowDate.getMonthValue() == holiday.getMonth()
+                            && nowDate.getDayOfMonth() == holiday.getDay()){
+                        switch (holiday){
+                            case MARCH_8 -> {
+                                if(employee.getGender() == Gender.FEMALE){{
+                                    congratulate(employee, holiday);
+                                }}
+                            }
+                            case FEBRUARY_23 -> {
+                                if(employee.getGender() == Gender.MALE){
+                                    congratulate(employee, holiday);
+                            }}
+                            default -> congratulate(employee, holiday);
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void congratulate(Employee employee, Holiday holiday) {
+        System.out.printf("Congratulate %s %s %s on %s%n",
+                employee.firstName, employee.lastName, employee.secondName, holiday.getMessage());
     }
 
     public String getFirstName() {
@@ -101,6 +137,10 @@ public class Employee {
         this.birthYear = birthYear;
     }
 
+    public Gender getGender() {
+        return gender;
+    }
+
     @Override
     public String toString() {
         return getInfo();
@@ -123,6 +163,8 @@ public class Employee {
             return date1.compareTo(date2);
         }
     }
+
+
 
 
 }
